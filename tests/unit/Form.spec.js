@@ -3,21 +3,21 @@ import Vuetify from 'vuetify';
 import Form from '@/components/Form.vue';
 
 describe('Form.vue', () => {
-    let localVue, vuetify, wp;
+    let localVue, vuetify, wrapper;
 
     beforeEach(() => {
         localVue = createLocalVue();
 
         vuetify = new Vuetify();
 
-        wp = mount(Form, {
+        wrapper = mount(Form, {
             localVue,
             vuetify,
         });
     });
 
     it('Deve...', async () => {
-        const eName = wp.find('#name');
+        const eName = wrapper.find('#name');
 
         const nameValue = 'Tiago';
 
@@ -29,32 +29,36 @@ describe('Form.vue', () => {
     it('Deve...', async () => {
         const name = 'Tiago';
 
-        await wp.find('#name').setValue(name);
+        await wrapper.find('#name').setValue(name);
 
-        await wp.find('#btn').trigger('click');
+        await wrapper.find('#btn').trigger('click');
 
-        expect(wp.emitted('submit')[0][0]['name']).toEqual(name);
+        expect(wrapper.emitted('submit')[0][0]['name']).toEqual(name);
     });
 
-    it('Deve...', async () => {
-        const baremo = {
-            id: 1,
-            name: 'Dicas',
-        };
+    // it('Deve...', async () => {
+    //     wrapper.find('#name').setValue('Tiago');
 
-        const baremos = [
-            { id: 1, name: 'Cadastro' },
-            { id: 2, name: 'Dicas' },
-        ];
+    //     await wrapper.find('select').setValue('value1');
 
-        await wp.find('#baremo').setValue(baremo);
+    //     await wrapper.find('#btn').trigger('click');
 
-        await wp.find('#btn').trigger('click');
+    //     expect(wrapper.emitted('submit')[0][0]).toEqual({
+    //         name: 'Tiago',
+    //         value: 'value1',
+    //     });
+    // });
 
-        expect(wp.emitted('submit')[0][0]).toStrictEqual({
-            name: null,
-            baremos,
-            baremo: null,
-        });
-    });
+    // it('Deve...', async () => {
+    //     await wrapper.find('#name').setValue('Tiago');
+
+    //     await wrapper.find('#baremo').setValue({ id: 2, name: 'Cobrançax' });
+
+    //     await wrapper.find('#btn').trigger('click');
+
+    //     expect(wrapper.emitted('submit')[0][0]).toStrictEqual({
+    //         name: 'Tiago',
+    //         baremo: { id: 2, name: 'Cobrança' },
+    //     });
+    // });
 });
